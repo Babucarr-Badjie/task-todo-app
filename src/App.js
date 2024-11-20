@@ -1,24 +1,46 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState } from "react";
+import NewTask from "./Components/NewTask";
+import TaskList from "./Components/TaskList";
 
 function App() {
+
+  // define states
+  const [newTask, setNewTask] = useState({});
+  const [allTask, setAllTask] = useState([]);
+
+  // event handlers functions
+  const handleChange = ({ target }) => {
+    const { name, value } = target;
+    setNewTask((prevTask) => ({
+      ...prevTask,
+      id: Date.now(),
+      [name]: value,
+    }));
+  };
+
+  const handleDeleteTask = (taskToDelete) => {
+    setAllTask((prevTask) =>
+      prevTask.filter((task) => task.id !== taskToDelete)
+    );
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (!newTask.title) return;
+    setAllTask((prevTask) => [newTask, ...prevTask]);
+    setNewTask({});
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <main>
+      <h1>Todo Tasks</h1>
+      <NewTask
+        newTask={newTask}
+        handleChange={handleChange}
+        handleSubmit={handleSubmit}
+      />
+      <TaskList allTasks={allTask} handleDeleteTask={handleDeleteTask} />
+    </main>
   );
 }
 
