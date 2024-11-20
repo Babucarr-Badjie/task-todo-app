@@ -3,10 +3,10 @@ import NewTask from "./Components/NewTask";
 import TaskList from "./Components/TaskList";
 
 function App() {
-
   // define states
   const [newTask, setNewTask] = useState({});
   const [allTask, setAllTask] = useState([]);
+ 
 
   // event handlers functions
   const handleChange = ({ target }) => {
@@ -30,6 +30,8 @@ function App() {
     setAllTask((prevTask) => [newTask, ...prevTask]);
     setNewTask({});
   };
+
+  
 
   return (
     <main>
