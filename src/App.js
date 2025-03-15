@@ -6,7 +6,7 @@ function App() {
   // define states
   const [newTask, setNewTask] = useState({});
   const [allTask, setAllTask] = useState([]);
- 
+  const [ok, setOk] = useState("");
 
   // event handlers functions
   const handleChange = ({ target }) => {
@@ -30,8 +30,6 @@ function App() {
     setAllTask((prevTask) => [newTask, ...prevTask]);
     setNewTask({});
   };
-
-  
 
   return (
     <main>
